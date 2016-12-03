@@ -3,13 +3,15 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Page One</ion-title>
+    <ion-title>Dynamic Form</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <div>
     <h2>Job Application for Heroes</h2>
-    <dynamic-form [questions]="questions"></dynamic-form>
+
+    <dynamic-form *ngIf="questions" [questions]="questions"></dynamic-form>
+    <div *ngIf="!questions">Loading...</div>
   </div>
 </ion-content>

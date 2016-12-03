@@ -6,8 +6,7 @@ import { TextboxQuestion }  from '../models/question-textbox';
 @Injectable()
 export class QuestionService {
   // Todo: get from a remote source of question metadata
-  // Todo: make asynchronous
-  getQuestions() {
+  getQuestions(): Promise<QuestionBase<any>[]> {
     let questions: QuestionBase<any>[] = [
       new DropdownQuestion({
         key: 'brave',
@@ -36,6 +35,14 @@ export class QuestionService {
         order: 2
       })
     ];
-    return questions.sort((a, b) => a.order - b.order);
+
+    return Promise.resolve(questions.sort((a, b) => a.order - b.order));
+  }
+
+  // See the "Take it slow" appendix
+  getQuestionsSlowly(): Promise<QuestionBase<any>[]> {
+    return new Promise<QuestionBase<any>[]>(resolve =>
+      setTimeout(resolve, 2000)) // delay 2 seconds
+      .then(() => this.getQuestions());
   }
 }

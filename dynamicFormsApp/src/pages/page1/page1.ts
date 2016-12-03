@@ -13,6 +13,6 @@ export class Page1 {
   questions: any[];
 
   constructor(public navCtrl: NavController, service: QuestionService) {
-    this.questions = service.getQuestions();
+    service.getQuestionsSlowly().then(questions => this.questions = questions);;
   }
 }
